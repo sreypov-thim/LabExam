@@ -1,0 +1,77 @@
+{
+  "info": {
+    "name": "Student Management System (via API Gateway)",
+    "description": "All requests go through the API gateway. Set the base_url collection variable to http://<minikube-ip>:30080 (run: minikube ip) or the URL printed by: minikube service api-gateway-service --url",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:30080" }
+  ],
+  "item": [
+    {
+      "name": "Task 5 - Registration: POST /api/register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Student_name\": \"Yiyao\",\n  \"student_mobile\": \"012345678\",\n  \"student_email\": \"yiyao@example.com\",\n  \"student_password\": \"secret123\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/register", "host": ["{{base_url}}"], "path": ["api", "register"] }
+      }
+    },
+    {
+      "name": "Registration: GET /api/students (list, to verify)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/students", "host": ["{{base_url}}"], "path": ["api", "students"] }
+      }
+    },
+    {
+      "name": "Registration: GET /api/students/1",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/students/1", "host": ["{{base_url}}"], "path": ["api", "students", "1"] }
+      }
+    },
+    {
+      "name": "Task 6 - Update mobile: PUT /api/students/1/mobile",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"student_mobile\": \"099888777\"\n}" },
+        "url": { "raw": "{{base_url}}/api/students/1/mobile", "host": ["{{base_url}}"], "path": ["api", "students", "1", "mobile"] }
+      }
+    },
+    {
+      "name": "Task 6 - Update password: PUT /api/students/1/password",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"old_password\": \"secret123\",\n  \"new_password\": \"newpass123\"\n}" },
+        "url": { "raw": "{{base_url}}/api/students/1/password", "host": ["{{base_url}}"], "path": ["api", "students", "1", "password"] }
+      }
+    },
+    {
+      "name": "Update both: PATCH /api/students/1",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_mobile\": \"011223344\",\n  \"old_password\": \"newpass123\",\n  \"new_password\": \"third456\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/students/1", "host": ["{{base_url}}"], "path": ["api", "students", "1"] }
+      }
+    },
+    {
+      "name": "Error case: wrong old password (401)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"old_password\": \"WRONG\",\n  \"new_password\": \"whatever1\"\n}" },
+        "url": { "raw": "{{base_url}}/api/students/1/password", "host": ["{{base_url}}"], "path": ["api", "students", "1", "password"] }
+      }
+    }
+  ]
+}

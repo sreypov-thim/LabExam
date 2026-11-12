@@ -1,0 +1,15 @@
+{
+  "name": "update-service",
+  "version": "1.0.0",
+  "description": "Student Management System - Update mobile number / password microservice",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^18.0.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0"
+  }
+}
